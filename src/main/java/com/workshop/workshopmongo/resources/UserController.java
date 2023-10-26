@@ -1,6 +1,7 @@
 package com.workshop.workshopmongo.resources;
 
 import com.workshop.workshopmongo.domain.User;
+import com.workshop.workshopmongo.dto.UserDTO;
 import com.workshop.workshopmongo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.workshop.workshopmongo.dto.UserDTO.fromUser;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
@@ -19,9 +22,10 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = userService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDto = list.stream().map(user -> fromUser(user)).toList();
+        return ResponseEntity.ok().body(listDto);
     }
 
     @GetMapping("/{id}")
