@@ -32,4 +32,8 @@ public class UserService {
         var foundUser = userRepository.findById(id);
         return foundUser.orElseThrow(() -> new ResourceNotFoundException(id));
     }
+    public void delete(String id){
+        findById(id);
+        userRepository.deleteById(id);
+    }
 }
