@@ -4,8 +4,10 @@ import com.workshop.workshopmongo.domain.User;
 import com.workshop.workshopmongo.dto.UserDTO;
 import com.workshop.workshopmongo.repository.UserRepository;
 import com.workshop.workshopmongo.service.exceptions.ResourceNotFoundException;
+import com.workshop.workshopmongo.service.exceptions.RollbackException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import static com.workshop.workshopmongo.dto.UserDTO.fromDTO;
 
@@ -14,6 +16,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Transactional(rollbackFor = RollbackException.class)
     public User insert(UserDTO userDTO){
         return userRepository.insert(fromDTO(userDTO));
     }

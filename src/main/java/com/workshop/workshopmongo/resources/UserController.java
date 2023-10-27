@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.workshop.workshopmongo.dto.UserDTO.fromDTO;
 import static com.workshop.workshopmongo.dto.UserDTO.fromUser;
 
 @RestController
