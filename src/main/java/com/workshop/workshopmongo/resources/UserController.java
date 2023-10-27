@@ -3,12 +3,15 @@ package com.workshop.workshopmongo.resources;
 import com.workshop.workshopmongo.domain.User;
 import com.workshop.workshopmongo.dto.UserDTO;
 import com.workshop.workshopmongo.service.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
+
+import static com.workshop.workshopmongo.dto.UserDTO.fromDTO;
 import static com.workshop.workshopmongo.dto.UserDTO.fromUser;
 
 @RestController
@@ -47,4 +50,9 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserDTO>update(@PathVariable String id,@RequestBody UserDTO userDTO){
+        var updatedUser = userService.update(id, userDTO);
+        return ResponseEntity.ok().body(fromUser(updatedUser));
+    }
 }

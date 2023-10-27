@@ -32,6 +32,14 @@ public class UserService {
         var foundUser = userRepository.findById(id);
         return foundUser.orElseThrow(() -> new ResourceNotFoundException(id));
     }
+
+    public User update(String id, UserDTO userDTO){
+        var foundUser = findById(id);
+        foundUser.setName(userDTO.name());
+        foundUser.setEmail(userDTO.email());
+        return userRepository.save(foundUser);
+    }
+
     public void delete(String id){
         findById(id);
         userRepository.deleteById(id);
